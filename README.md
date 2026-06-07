@@ -1,6 +1,6 @@
 # Timer
 
-Timer is a Manifest V3 Chrome extension that replaces the new tab page with a
+Life Timer is a Manifest V3 Chrome extension that replaces the new tab page with a
 live life countdown. Enter a birth date and target lifespan, and every new tab
 shows the remaining years to seven decimal places above the reminder:
 
@@ -15,3 +15,21 @@ shows the remaining years to seven decimal places above the reminder:
 
 Settings are saved with `chrome.storage.local`, so the countdown remains
 configured across new tabs and browser restarts.
+
+## Prepare Web Store package
+
+Generate icons and listing assets:
+
+```sh
+python3 scripts/generate_store_assets.py
+```
+
+Create the upload zip:
+
+```sh
+./scripts/package_extension.sh
+```
+
+The generated Chrome Web Store upload package is written to `dist/`. Store
+listing copy is in `STORE_LISTING.md`, required listing images are in
+`store-assets/`, and the privacy policy is in `PRIVACY.md`.
