@@ -3,8 +3,8 @@
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background: #0d1014;
-  color: #f6f0e7;
+  background: #000000;
+  color: #ffffff;
 }
 
 * {
@@ -15,171 +15,60 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(115deg, rgba(19, 73, 65, 0.42) 0%, transparent 44%),
-    linear-gradient(180deg, #0d0f10 0%, #15120f 58%, #071b19 100%);
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  content: "";
-  background-image:
-    linear-gradient(rgba(246, 240, 231, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 240, 231, 0.04) 1px, transparent 1px);
-  background-size:
-    100% 72px,
-    72px 100%;
-  mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 78%, transparent 100%);
-}
-
-button,
-input {
-  font: inherit;
+  background: #000000;
 }
 
 .shell {
-  position: relative;
   display: grid;
   min-height: 100vh;
   place-items: center;
-  padding: clamp(24px, 6vw, 72px);
-}
-
-.settings-panel {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 0.72fr auto;
-  gap: 10px;
-  width: min(calc(100vw - 32px), 470px);
-  padding: 12px;
-  border: 1px solid rgba(246, 240, 231, 0.16);
-  border-radius: 8px;
-  background: rgba(16, 18, 22, 0.78);
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(18px);
-}
-
-.settings-panel label {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-}
-
-.settings-panel span {
-  color: rgba(246, 240, 231, 0.68);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.settings-panel input {
-  width: 100%;
-  min-width: 0;
-  height: 40px;
-  border: 1px solid rgba(246, 240, 231, 0.18);
-  border-radius: 6px;
-  padding: 0 10px;
-  background: rgba(255, 255, 255, 0.07);
-  color: #f6f0e7;
-  outline: none;
-}
-
-.settings-panel input:focus-visible {
-  border-color: #f3b66d;
-  box-shadow: 0 0 0 3px rgba(243, 182, 109, 0.16);
-}
-
-.settings-panel button {
-  align-self: end;
-  height: 40px;
-  border: 0;
-  border-radius: 6px;
-  padding: 0 15px;
-  background: #f3b66d;
-  color: #16110c;
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.settings-panel button:focus-visible {
-  outline: 3px solid rgba(243, 182, 109, 0.34);
-  outline-offset: 2px;
-}
-
-.settings-status {
-  grid-column: 1 / -1;
-  min-height: 1rem;
-  margin: 0;
-  color: rgba(246, 240, 231, 0.68);
-  font-size: 0.76rem;
+  padding: 32px;
 }
 
 .timer-panel {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 1040px);
+  width: min(100%, 900px);
+  text-align: center;
 }
 
 .eyebrow {
-  margin: 0 0 18px;
-  color: #f3b66d;
-  font-size: 0.86rem;
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
 h1 {
-  max-width: 760px;
-  margin: 0;
-  color: #f6f0e7;
-  font-size: clamp(2.4rem, 8vw, 6.2rem);
-  font-weight: 780;
-  line-height: 0.92;
+  max-width: 680px;
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 3.4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .countdown {
-  margin-top: clamp(36px, 8vw, 86px);
+  margin-top: 28px;
   color: #ffffff;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(3rem, 13vw, 12rem);
-  font-weight: 760;
-  line-height: 0.9;
+  font-size: clamp(1.45rem, 4.4vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .countdown[data-state="empty"] {
-  color: rgba(246, 240, 231, 0.48);
-}
-
-.target-date {
-  margin: 22px 0 0;
-  color: rgba(246, 240, 231, 0.68);
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.48);
 }
 
 @media (max-width: 680px) {
   .shell {
-    align-items: end;
-    padding-top: 190px;
+    padding: 24px 18px;
   }
 
-  .settings-panel {
-    top: 16px;
-    right: 16px;
-    left: 16px;
-    grid-template-columns: 1fr 0.72fr;
-    width: auto;
-  }
-
-  .settings-panel button {
-    grid-column: 1 / -1;
+  .countdown {
+    white-space: normal;
   }
 }

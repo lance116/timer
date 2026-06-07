@@ -1,8 +1,9 @@
 # Timer
 
-Life Timer is a Manifest V3 Chrome extension that replaces the new tab page with a
-live life countdown. Enter a birth date and target lifespan, and every new tab
-shows the remaining years to seven decimal places above the reminder:
+Life Timer is a Manifest V3 Chrome extension that replaces the new tab page with
+a live life countdown. Set a birth date and target lifespan from the extension
+popup, and every new tab shows the remaining years to twelve decimal places
+above the reminder:
 
 > Remember, you have limited time here.
 

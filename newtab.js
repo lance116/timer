@@ -1,15 +1,11 @@
 const MS_PER_YEAR = 365.2425 * 24 * 60 * 60 * 1000;
+const COUNTDOWN_DECIMALS = 12;
 const DEFAULT_SETTINGS = {
   birthDate: "",
   lifespanYears: 85
 };
 
 const countdown = document.querySelector("#countdown");
-const targetDate = document.querySelector("#target-date");
-const form = document.querySelector("#settings-form");
-const birthDateInput = document.querySelector("#birth-date");
-const lifespanYearsInput = document.querySelector("#lifespan-years");
-const status = document.querySelector("#settings-status");
 
 const storage = createStorage();
 let settings = { ...DEFAULT_SETTINGS };
@@ -20,32 +16,31 @@ init();
 
 async function init() {
   settings = normalizeSettings(await storage.get(DEFAULT_SETTINGS));
-  applySettingsToForm(settings);
   updateTarget();
-  bindEvents();
+  bindStorageUpdates();
   tick();
 }
 
-function bindEvents() {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    await saveSettingsFromForm();
+function bindStorageUpdates() {
+  if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.onChanged) {
+    return;
+  }
+
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== "local") {
+      return;
+    }
+
+    if (changes.birthDate || changes.lifespanYears) {
+      settings = normalizeSettings({
+        birthDate: changes.birthDate ? changes.birthDate.newValue : settings.birthDate,
+        lifespanYears: changes.lifespanYears
+          ? changes.lifespanYears.newValue
+          : settings.lifespanYears
+      });
+      updateTarget();
+    }
   });
-
-  birthDateInput.addEventListener("change", saveSettingsFromForm);
-  lifespanYearsInput.addEventListener("change", saveSettingsFromForm);
-}
-
-async function saveSettingsFromForm() {
-  const nextSettings = normalizeSettings({
-    birthDate: birthDateInput.value,
-    lifespanYears: lifespanYearsInput.value
-  });
-
-  settings = nextSettings;
-  await storage.set(nextSettings);
-  updateTarget();
-  showStatus(nextSettings.birthDate ? "Saved." : "Birth date needed.");
 }
 
 function updateTarget() {
@@ -53,32 +48,22 @@ function updateTarget() {
 
   if (!birthDate || !Number.isFinite(settings.lifespanYears)) {
     targetTime = null;
-    countdown.textContent = "--.------- years";
+    countdown.textContent = placeholderCountdown();
     countdown.dataset.state = "empty";
-    targetDate.textContent = "Awaiting dates.";
     return;
   }
 
   targetTime = birthDate.getTime() + settings.lifespanYears * MS_PER_YEAR;
   countdown.dataset.state = "active";
-  const formattedDate = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "long"
-  }).format(new Date(targetTime));
-  targetDate.textContent = `Target: ${formattedDate}.`;
 }
 
 function tick() {
   if (targetTime !== null) {
     const remainingYears = Math.max(0, (targetTime - Date.now()) / MS_PER_YEAR);
-    countdown.textContent = `${remainingYears.toFixed(7)} years`;
+    countdown.textContent = `${remainingYears.toFixed(COUNTDOWN_DECIMALS)} years`;
   }
 
   animationFrame = window.requestAnimationFrame(tick);
-}
-
-function applySettingsToForm(nextSettings) {
-  birthDateInput.value = nextSettings.birthDate;
-  lifespanYearsInput.value = nextSettings.lifespanYears;
 }
 
 function normalizeSettings(value) {
@@ -99,12 +84,8 @@ function parseBirthDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function showStatus(message) {
-  status.textContent = message;
-  window.clearTimeout(showStatus.timeout);
-  showStatus.timeout = window.setTimeout(() => {
-    status.textContent = "";
-  }, 2400);
+function placeholderCountdown() {
+  return `--.${"-".repeat(COUNTDOWN_DECIMALS)} years`;
 }
 
 function createStorage() {
@@ -118,11 +99,6 @@ function createStorage() {
         return new Promise((resolve) => {
           chromeStorage.get(defaults, resolve);
         });
-      },
-      set(value) {
-        return new Promise((resolve) => {
-          chromeStorage.set(value, resolve);
-        });
       }
     };
   }
@@ -135,10 +111,6 @@ function createStorage() {
       } catch {
         return Promise.resolve(defaults);
       }
-    },
-    set(value) {
-      window.localStorage.setItem(key, JSON.stringify(value));
-      return Promise.resolve();
     }
   };
 }

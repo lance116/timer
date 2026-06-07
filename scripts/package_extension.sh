@@ -18,6 +18,9 @@ COPYFILE_DISABLE=1 zip -r -X "$package" \
   newtab.html \
   newtab.js \
   styles.css \
+  popup.html \
+  popup.js \
+  popup.css \
   assets/icons
 
 echo "$package"
