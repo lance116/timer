@@ -45,7 +45,7 @@ async function saveSettingsFromForm() {
   settings = nextSettings;
   await storage.set(nextSettings);
   updateTarget();
-  showStatus(nextSettings.birthDate ? "Saved." : "Add your birth date to start.");
+  showStatus(nextSettings.birthDate ? "Saved." : "Birth date needed.");
 }
 
 function updateTarget() {
@@ -54,15 +54,17 @@ function updateTarget() {
   if (!birthDate || !Number.isFinite(settings.lifespanYears)) {
     targetTime = null;
     countdown.textContent = "--.------- years";
-    targetDate.textContent = "Enter your birthday and target lifespan.";
+    countdown.dataset.state = "empty";
+    targetDate.textContent = "Awaiting dates.";
     return;
   }
 
   targetTime = birthDate.getTime() + settings.lifespanYears * MS_PER_YEAR;
+  countdown.dataset.state = "active";
   const formattedDate = new Intl.DateTimeFormat(undefined, {
     dateStyle: "long"
   }).format(new Date(targetTime));
-  targetDate.textContent = `Counting down to ${formattedDate}.`;
+  targetDate.textContent = `Target: ${formattedDate}.`;
 }
 
 function tick() {

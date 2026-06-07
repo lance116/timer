@@ -16,8 +16,22 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at 20% 15%, rgba(183, 65, 14, 0.18), transparent 34rem),
-    linear-gradient(135deg, #0d1014 0%, #141820 52%, #11100d 100%);
+    linear-gradient(115deg, rgba(19, 73, 65, 0.42) 0%, transparent 44%),
+    linear-gradient(180deg, #0d0f10 0%, #15120f 58%, #071b19 100%);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(246, 240, 231, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246, 240, 231, 0.04) 1px, transparent 1px);
+  background-size:
+    100% 72px,
+    72px 100%;
+  mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 78%, transparent 100%);
 }
 
 button,
@@ -37,6 +51,7 @@ input {
   position: fixed;
   top: 24px;
   right: 24px;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr 0.72fr auto;
   gap: 10px;
@@ -106,6 +121,8 @@ input {
 }
 
 .timer-panel {
+  position: relative;
+  z-index: 1;
   width: min(100%, 1040px);
 }
 
@@ -130,10 +147,15 @@ h1 {
 .countdown {
   margin-top: clamp(36px, 8vw, 86px);
   color: #ffffff;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
   font-size: clamp(3rem, 13vw, 12rem);
   font-weight: 760;
   line-height: 0.9;
+}
+
+.countdown[data-state="empty"] {
+  color: rgba(246, 240, 231, 0.48);
 }
 
 .target-date {
