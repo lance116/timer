@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Timer",
+  "description": "A new-tab life countdown reminder.",
+  "version": "0.1.0",
+  "permissions": ["storage"],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}
