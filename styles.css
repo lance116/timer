@@ -26,10 +26,83 @@ input {
 }
 
 .shell {
+  position: relative;
   display: grid;
   min-height: 100vh;
   place-items: center;
   padding: clamp(24px, 6vw, 72px);
+}
+
+.settings-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: grid;
+  grid-template-columns: 1fr 0.72fr auto;
+  gap: 10px;
+  width: min(calc(100vw - 32px), 470px);
+  padding: 12px;
+  border: 1px solid rgba(246, 240, 231, 0.16);
+  border-radius: 8px;
+  background: rgba(16, 18, 22, 0.78);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.settings-panel label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.settings-panel span {
+  color: rgba(246, 240, 231, 0.68);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.settings-panel input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border: 1px solid rgba(246, 240, 231, 0.18);
+  border-radius: 6px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #f6f0e7;
+  outline: none;
+}
+
+.settings-panel input:focus-visible {
+  border-color: #f3b66d;
+  box-shadow: 0 0 0 3px rgba(243, 182, 109, 0.16);
+}
+
+.settings-panel button {
+  align-self: end;
+  height: 40px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 15px;
+  background: #f3b66d;
+  color: #16110c;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.settings-panel button:focus-visible {
+  outline: 3px solid rgba(243, 182, 109, 0.34);
+  outline-offset: 2px;
+}
+
+.settings-status {
+  grid-column: 1 / -1;
+  min-height: 1rem;
+  margin: 0;
+  color: rgba(246, 240, 231, 0.68);
+  font-size: 0.76rem;
 }
 
 .timer-panel {
@@ -49,7 +122,7 @@ h1 {
   max-width: 760px;
   margin: 0;
   color: #f6f0e7;
-  font-size: clamp(2rem, 6.2rem, 9vw);
+  font-size: clamp(2.4rem, 8vw, 6.2rem);
   font-weight: 780;
   line-height: 0.92;
 }
@@ -61,4 +134,30 @@ h1 {
   font-size: clamp(3rem, 13vw, 12rem);
   font-weight: 760;
   line-height: 0.9;
+}
+
+.target-date {
+  margin: 22px 0 0;
+  color: rgba(246, 240, 231, 0.68);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 680px) {
+  .shell {
+    align-items: end;
+    padding-top: 190px;
+  }
+
+  .settings-panel {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    grid-template-columns: 1fr 0.72fr;
+    width: auto;
+  }
+
+  .settings-panel button {
+    grid-column: 1 / -1;
+  }
 }
