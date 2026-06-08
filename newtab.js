@@ -83,8 +83,10 @@ function updateTarget() {
 function tick() {
   if (targetTime !== null) {
     const now = Date.now();
-    const remainingYears = Math.max(0, (targetTime - now) / MS_PER_YEAR);
+    const remainingMs = Math.max(0, targetTime - now);
+    const remainingYears = remainingMs / MS_PER_YEAR;
     countdown.textContent = remainingYears.toFixed(COUNTDOWN_DECIMALS);
+    metrics.days.textContent = decimalFormatters.days.format(remainingMs / MS_PER_DAY);
 
     const metricSecond = Math.floor(now / 1000);
     if (metricSecond !== lastMetricSecond) {
@@ -114,7 +116,6 @@ function updateMetrics(now) {
   const targetDate = new Date(targetTime);
 
   setMetricValues({
-    days: decimalFormatters.days.format(days),
     meals: Math.ceil(days * MEALS_PER_DAY),
     haircuts: Math.ceil(days / averageDaysPerHaircut()),
     worldCups: countWorldCupsBetween(nowDate, targetDate),
