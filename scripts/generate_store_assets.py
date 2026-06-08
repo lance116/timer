@@ -64,9 +64,8 @@ def make_store_image(path, size, variant):
 
     if variant == "screenshot":
         text_center(draw, (width / 2, 230), "TIME REMAINING", font(16, True), dim)
-        text_center(draw, (width / 2, 310), "Remember, you have", font(82, True), cream)
-        text_center(draw, (width / 2, 400), "limited time here.", font(82, True), cream)
-        text_center(draw, (width / 2, 535), "48.566648512345 years", font(72, True), cream)
+        text_center(draw, (width / 2, 340), "48.566648512345 years", font(72, True), cream)
+        draw_metrics(draw, width / 2 - 380, 470, 760, cream, dim)
     elif variant == "small":
         draw.text((32, 32), "Life Timer", font=font(46, True), fill=cream)
         draw.text((34, 92), "A new tab countdown for limited time.", font=font(22), fill=dim)
@@ -76,12 +75,30 @@ def make_store_image(path, size, variant):
         image.paste(icon, (width - 126, height - 126), icon)
     else:
         draw.text((78, 86), "Life Timer", font=font(86, True), fill=cream)
-        draw.text((84, 188), "Remember, you have limited time here.", font=font(36), fill=dim)
+        draw.text((84, 188), "Years, days, Mondays, weekends, and summers left.", font=font(34), fill=dim)
         draw.text((78, 326), "48.566648512345 years", font=font(82, True), fill=cream)
         icon = make_icon(160)
         image.paste(icon, (width - 238, 86), icon)
 
     image.save(path)
+
+
+def draw_metrics(draw, x, y, width, cream, dim):
+    labels = [
+        ("Days", "17,727"),
+        ("Weeks", "2,533"),
+        ("Mondays", "2,533"),
+        ("Weekends", "2,533"),
+        ("Summers", "49"),
+    ]
+    gap = 10
+    item_width = (width - gap * (len(labels) - 1)) / len(labels)
+    for index, (label, value) in enumerate(labels):
+        left = x + index * (item_width + gap)
+        right = left + item_width
+        draw.rounded_rectangle([left, y, right, y + 92], radius=8, outline=(44, 44, 44), width=1)
+        text_center(draw, ((left + right) / 2, y + 28), label.upper(), font(13, True), dim)
+        text_center(draw, ((left + right) / 2, y + 60), value, font(27, True), cream)
 
 
 def main():

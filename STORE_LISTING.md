@@ -15,11 +15,12 @@ Language: English
 Detailed description:
 
 Life Timer replaces your Chrome new tab page with a clean countdown of how many
-years you have left, shown to twelve decimal places.
+years you have left, shown to twelve decimal places. It also shows more tangible
+counts for days, weeks, Mondays, weekends, and summers left.
 
 Click the extension icon to enter your birth date and estimated target lifespan.
-The extension saves those settings locally in Chrome, then every new tab shows a
-live countdown and the reminder: "Remember, you have limited time here."
+The extension saves those settings locally in Chrome, then every new tab shows
+your private life timer.
 
 The extension has no account, analytics, ads, tracking, or remote server. Your
 settings stay on your device.
@@ -63,4 +64,4 @@ No credentials are required.
 1. Load the extension.
 2. Open a new tab.
 3. Enter a birth date and target lifespan.
-4. Confirm the new tab page shows a live countdown to twelve decimal places.
+4. Confirm the new tab page shows a live countdown and concrete metric counters.

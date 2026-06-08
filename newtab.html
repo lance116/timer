@@ -3,15 +3,36 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Timer</title>
+    <title>Life Timer</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="shell">
-      <section class="timer-panel" aria-labelledby="timer-title">
+      <section class="timer-panel" aria-label="Life countdown">
         <p class="eyebrow">Time remaining</p>
-        <h1 id="timer-title">Remember, you have limited time here.</h1>
         <div class="countdown" id="countdown" aria-live="polite">--.------------ years</div>
+        <dl class="metrics" aria-label="Concrete time remaining">
+          <div class="metric">
+            <dt>Days</dt>
+            <dd id="metric-days">--</dd>
+          </div>
+          <div class="metric">
+            <dt>Weeks</dt>
+            <dd id="metric-weeks">--</dd>
+          </div>
+          <div class="metric">
+            <dt>Mondays</dt>
+            <dd id="metric-mondays">--</dd>
+          </div>
+          <div class="metric">
+            <dt>Weekends</dt>
+            <dd id="metric-weekends">--</dd>
+          </div>
+          <div class="metric">
+            <dt>Summers</dt>
+            <dd id="metric-summers">--</dd>
+          </div>
+        </dl>
       </section>
     </main>
     <script src="newtab.js"></script>

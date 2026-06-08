@@ -26,7 +26,7 @@ body {
 }
 
 .timer-panel {
-  width: min(100%, 900px);
+  width: min(100%, 980px);
   text-align: center;
 }
 
@@ -39,21 +39,12 @@ body {
   text-transform: uppercase;
 }
 
-h1 {
-  max-width: 680px;
-  margin: 0 auto;
-  color: #ffffff;
-  font-size: clamp(1.35rem, 3.4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.05;
-}
-
 .countdown {
-  margin-top: 28px;
+  margin-top: 0;
   color: #ffffff;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(1.45rem, 4.4vw, 4.2rem);
+  font-size: clamp(1.6rem, 4.9vw, 4.6rem);
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
@@ -63,6 +54,48 @@ h1 {
   color: rgba(255, 255, 255, 0.48);
 }
 
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  width: min(100%, 760px);
+  margin: 34px auto 0;
+  padding: 0;
+}
+
+.metric {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+.metric dt,
+.metric dd {
+  margin: 0;
+}
+
+.metric dt {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.metric dd {
+  overflow: hidden;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.05rem, 2.1vw, 1.6rem);
+  font-weight: 750;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 680px) {
   .shell {
     padding: 24px 18px;
@@ -70,5 +103,14 @@ h1 {
 
   .countdown {
     white-space: normal;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 24px;
+  }
+
+  .metric:last-child {
+    grid-column: 1 / -1;
   }
 }
