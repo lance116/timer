@@ -23,6 +23,12 @@ def text_center(draw, xy, text, loaded_font, fill):
     draw.text((x, y), text, font=loaded_font, fill=fill)
 
 
+def text_left(draw, xy, text, loaded_font, fill):
+    box = draw.textbbox((0, 0), text, font=loaded_font)
+    y = xy[1] - (box[3] - box[1]) / 2 - box[1]
+    draw.text((xy[0], y), text, font=loaded_font, fill=fill)
+
+
 def make_icon(size):
     scale = size / 128
     image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
@@ -63,8 +69,9 @@ def make_store_image(path, size, variant):
     dim = (168, 168, 168)
 
     if variant == "screenshot":
-        text_center(draw, (width / 2, 120), "TIME REMAINING", font(16, True), dim)
-        draw_metrics(draw, width / 2, 190, cream, dim)
+        left = 340
+        text_left(draw, (left, 120), "TIME REMAINING", font(16, True), dim)
+        draw_metrics(draw, left, 190, cream, dim)
     elif variant == "small":
         draw.text((32, 32), "Life Timer", font=font(46, True), fill=cream)
         draw.text((34, 92), "A new tab countdown for limited time.", font=font(22), fill=dim)
@@ -85,7 +92,7 @@ def make_store_image(path, size, variant):
 def draw_metrics(draw, x, y, cream, dim):
     labels = [
         ("Years", "48.566648512345"),
-        ("Days", "17,727.123456"),
+        ("Days", "17,727.123456789012"),
         ("Meals", "44,318"),
         ("Haircuts", "195"),
         ("World Cups", "13"),
@@ -93,8 +100,8 @@ def draw_metrics(draw, x, y, cream, dim):
     ]
     for index, (label, value) in enumerate(labels):
         top = y + index * 92
-        text_center(draw, (x, top), label.upper(), font(14, True), dim)
-        text_center(draw, (x, top + 38), value, font(42, True), cream)
+        text_left(draw, (x, top), label.upper(), font(14, True), dim)
+        text_left(draw, (x, top + 38), value, font(42, True), cream)
 
 
 def main():

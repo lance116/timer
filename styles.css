@@ -27,7 +27,7 @@ body {
 
 .timer-panel {
   width: min(100%, 760px);
-  text-align: center;
+  text-align: left;
 }
 
 .eyebrow {
@@ -43,7 +43,7 @@ body {
   display: grid;
   gap: clamp(16px, 2.4vh, 24px);
   width: min(100%, 720px);
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
 }
 

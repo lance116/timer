@@ -20,8 +20,8 @@ const metrics = {
 const integerFormatter = new Intl.NumberFormat();
 const decimalFormatters = {
   days: new Intl.NumberFormat(undefined, {
-    minimumFractionDigits: 6,
-    maximumFractionDigits: 6
+    minimumFractionDigits: COUNTDOWN_DECIMALS,
+    maximumFractionDigits: COUNTDOWN_DECIMALS
   })
 };
 
