@@ -16,7 +16,9 @@ Detailed description:
 
 Life Timer replaces your Chrome new tab page with a clean countdown of how many
 years you have left, shown to twelve decimal places. It also shows more tangible
-counts for days, weeks, Mondays, weekends, and summers left.
+counts for days, meals, haircuts, World Cups, and summers left. Continuous
+years and days use decimals; meals, haircuts, World Cups, and summers stay as
+whole-number event counts.
 
 Click the extension icon to enter your birth date and estimated target lifespan.
 The extension saves those settings locally in Chrome, then every new tab shows

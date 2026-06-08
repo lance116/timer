@@ -1,6 +1,9 @@
 const MS_PER_YEAR = 365.2425 * 24 * 60 * 60 * 1000;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const COUNTDOWN_DECIMALS = 12;
+const MEALS_PER_DAY = 2.5;
+const MONTHS_PER_HAIRCUT = 3;
+const WORLD_CUP_CYCLE_START_YEAR = 2026;
 const DEFAULT_SETTINGS = {
   birthDate: "",
   lifespanYears: 85
@@ -9,12 +12,18 @@ const DEFAULT_SETTINGS = {
 const countdown = document.querySelector("#countdown");
 const metrics = {
   days: document.querySelector("#metric-days"),
-  weeks: document.querySelector("#metric-weeks"),
-  mondays: document.querySelector("#metric-mondays"),
-  weekends: document.querySelector("#metric-weekends"),
+  meals: document.querySelector("#metric-meals"),
+  haircuts: document.querySelector("#metric-haircuts"),
+  worldCups: document.querySelector("#metric-world-cups"),
   summers: document.querySelector("#metric-summers")
 };
 const integerFormatter = new Intl.NumberFormat();
+const decimalFormatters = {
+  days: new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: 6,
+    maximumFractionDigits: 6
+  })
+};
 
 const storage = createStorage();
 let settings = { ...DEFAULT_SETTINGS };
@@ -75,7 +84,7 @@ function tick() {
   if (targetTime !== null) {
     const now = Date.now();
     const remainingYears = Math.max(0, (targetTime - now) / MS_PER_YEAR);
-    countdown.textContent = `${remainingYears.toFixed(COUNTDOWN_DECIMALS)} years`;
+    countdown.textContent = remainingYears.toFixed(COUNTDOWN_DECIMALS);
 
     const metricSecond = Math.floor(now / 1000);
     if (metricSecond !== lastMetricSecond) {
@@ -91,84 +100,61 @@ function updateMetrics(now) {
   if (now === null || targetTime === null) {
     setMetricValues({
       days: null,
-      weeks: null,
-      mondays: null,
-      weekends: null,
+      meals: null,
+      haircuts: null,
+      worldCups: null,
       summers: null
     });
     return;
   }
 
   const remainingMs = Math.max(0, targetTime - now);
-  const days = Math.ceil(remainingMs / MS_PER_DAY);
+  const days = remainingMs / MS_PER_DAY;
   const nowDate = new Date(now);
   const targetDate = new Date(targetTime);
 
   setMetricValues({
-    days,
-    weeks: Math.ceil(days / 7),
-    mondays: countWeekdayBetween(nowDate, targetDate, 1),
-    weekends: countWeekdayBetween(nowDate, targetDate, 6),
-    summers: countSummersBetween(nowDate, targetDate)
+    days: decimalFormatters.days.format(days),
+    meals: Math.ceil(days * MEALS_PER_DAY),
+    haircuts: Math.ceil(days / averageDaysPerHaircut()),
+    worldCups: countWorldCupsBetween(nowDate, targetDate),
+    summers: Math.ceil(remainingMs / MS_PER_YEAR)
   });
 }
 
 function setMetricValues(values) {
   for (const [key, value] of Object.entries(values)) {
     metrics[key].textContent =
-      typeof value === "number" ? integerFormatter.format(value) : "--";
+      typeof value === "number" ? integerFormatter.format(value) : value || "--";
   }
 }
 
-function countWeekdayBetween(startDate, endDate, weekday) {
-  const start = startOfLocalDay(startDate);
-  const end = startOfLocalDay(endDate);
-  const offset = (weekday - start.getDay() + 7) % 7;
-  const first = addDays(start, offset);
-
-  if (first.getTime() > end.getTime()) {
-    return 0;
-  }
-
-  return Math.floor((end.getTime() - first.getTime()) / (7 * MS_PER_DAY)) + 1;
-}
-
-function countSummersBetween(startDate, endDate) {
+function countWorldCupsBetween(startDate, endDate) {
   if (endDate.getTime() <= startDate.getTime()) {
     return 0;
   }
 
-  let year = startDate.getFullYear();
+  let year = firstWorldCupYearOnOrAfter(startDate.getFullYear());
   let count = 0;
 
-  if (isDuringNorthernSummer(startDate)) {
-    count = 1;
-    year += 1;
-  } else if (startDate.getTime() > new Date(year, 7, 31, 23, 59, 59, 999).getTime()) {
-    year += 1;
-  }
-
-  while (new Date(year, 5, 1).getTime() <= endDate.getTime()) {
-    count += 1;
-    year += 1;
+  while (new Date(year, 0, 1).getTime() <= endDate.getTime()) {
+    if (new Date(year, 11, 31, 23, 59, 59, 999).getTime() >= startDate.getTime()) {
+      count += 1;
+    }
+    year += 4;
   }
 
   return count;
 }
 
-function isDuringNorthernSummer(date) {
-  const year = date.getFullYear();
-  const summerStart = new Date(year, 5, 1);
-  const summerEnd = new Date(year, 7, 31, 23, 59, 59, 999);
-  return date.getTime() >= summerStart.getTime() && date.getTime() <= summerEnd.getTime();
+function firstWorldCupYearOnOrAfter(year) {
+  const offset =
+    ((year - WORLD_CUP_CYCLE_START_YEAR) % 4 + 4) % 4;
+  return offset === 0 ? year : year + (4 - offset);
 }
 
-function startOfLocalDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
-
-function addDays(date, days) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+function averageDaysPerHaircut() {
+  return MS_PER_YEAR / MS_PER_DAY / (12 / MONTHS_PER_HAIRCUT);
 }
 
 function normalizeSettings(value) {
@@ -190,7 +176,7 @@ function parseBirthDate(value) {
 }
 
 function placeholderCountdown() {
-  return `--.${"-".repeat(COUNTDOWN_DECIMALS)} years`;
+  return `--.${"-".repeat(COUNTDOWN_DECIMALS)}`;
 }
 
 function createStorage() {

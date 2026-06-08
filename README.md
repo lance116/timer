@@ -3,7 +3,9 @@
 Life Timer is a Manifest V3 Chrome extension that replaces the new tab page with
 a live life countdown. Set a birth date and target lifespan from the extension
 popup, and every new tab shows the remaining years to twelve decimal places
-alongside tangible counts for days, weeks, Mondays, weekends, and summers left.
+alongside tangible counts for days, meals, haircuts, World Cups, and summers left.
+Years and days use decimals; meals, haircuts, World Cups, and summers stay as
+whole-number event counts.
 
 ## Install locally
 
