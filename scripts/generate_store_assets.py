@@ -74,9 +74,9 @@ def make_store_image(path, size, variant):
         draw_metrics(draw, left, 190, cream, dim)
     elif variant == "small":
         draw.text((32, 32), "Life Timer", font=font(46, True), fill=cream)
-        draw.text((34, 92), "A new tab countdown for limited time.", font=font(22), fill=dim)
+        draw.text((34, 92), "A new tab countdown to any target age.", font=font(22), fill=dim)
         draw.text((34, 164), "48.566648512", font=font(38, True), fill=cream)
-        draw.text((36, 222), "years left", font=font(24, True), fill=cream)
+        draw.text((36, 222), "years to target", font=font(24, True), fill=cream)
         icon = make_icon(96)
         image.paste(icon, (width - 126, height - 126), icon)
     else:

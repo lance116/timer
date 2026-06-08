@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Life Timer",
-  "description": "Replace your new tab page with a private countdown of years left.",
-  "version": "0.5.1",
+  "description": "Replace your new tab page with a private countdown to any target age.",
+  "version": "0.6.0",
   "icons": {
     "16": "assets/icons/icon-16.png",
     "32": "assets/icons/icon-32.png",

@@ -1,11 +1,11 @@
 const DEFAULT_SETTINGS = {
   birthDate: "",
-  lifespanYears: 85
+  targetAge: 85
 };
 
 const form = document.querySelector("#settings-form");
 const birthDateInput = document.querySelector("#birth-date");
-const lifespanYearsInput = document.querySelector("#lifespan-years");
+const targetAgeInput = document.querySelector("#target-age");
 const status = document.querySelector("#settings-status");
 
 const storage = createStorage();
@@ -15,7 +15,7 @@ init();
 async function init() {
   const settings = normalizeSettings(await storage.get(DEFAULT_SETTINGS));
   birthDateInput.value = settings.birthDate;
-  lifespanYearsInput.value = settings.lifespanYears;
+  targetAgeInput.value = settings.targetAge;
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -23,13 +23,13 @@ async function init() {
   });
 
   birthDateInput.addEventListener("change", saveSettings);
-  lifespanYearsInput.addEventListener("change", saveSettings);
+  targetAgeInput.addEventListener("change", saveSettings);
 }
 
 async function saveSettings() {
   const settings = normalizeSettings({
     birthDate: birthDateInput.value,
-    lifespanYears: lifespanYearsInput.value
+    targetAge: targetAgeInput.value
   });
 
   await storage.set(settings);
@@ -37,12 +37,26 @@ async function saveSettings() {
 }
 
 function normalizeSettings(value) {
-  const lifespanYears = Number.parseFloat(value.lifespanYears);
+  const targetAge = parseTargetAge(value);
 
   return {
     birthDate: typeof value.birthDate === "string" ? value.birthDate : "",
-    lifespanYears: Number.isFinite(lifespanYears) ? lifespanYears : 85
+    targetAge: Number.isFinite(targetAge) ? targetAge : 85
   };
+}
+
+function parseTargetAge(value) {
+  const targetAge = Number.parseFloat(value.targetAge);
+  const legacyAge = Number.parseFloat(value.lifespanYears);
+
+  if (
+    Number.isFinite(legacyAge) &&
+    (!Number.isFinite(targetAge) || targetAge === DEFAULT_SETTINGS.targetAge)
+  ) {
+    return legacyAge;
+  }
+
+  return targetAge;
 }
 
 function showStatus(message) {

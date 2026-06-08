@@ -6,7 +6,7 @@ Use this as the dashboard copy for the first submission.
 
 Name: Life Timer
 
-Summary: Replace your new tab page with a private countdown of years left.
+Summary: Replace your new tab page with a private countdown to any target age.
 
 Category: Productivity
 
@@ -14,15 +14,15 @@ Language: English
 
 Detailed description:
 
-Life Timer replaces your Chrome new tab page with a clean countdown of how many
-years you have left, shown to twelve decimal places. It also shows more tangible
-counts for days, meals, haircuts, World Cups, and summers left. Continuous
-years and days use decimals; meals, haircuts, World Cups, and summers stay as
-whole-number event counts.
+Life Timer replaces your Chrome new tab page with a clean countdown to any target
+age, shown in years to twelve decimal places. It also shows more tangible counts
+for days, meals, haircuts, World Cups, and summers left. Continuous years and
+days use decimals; meals, haircuts, World Cups, and summers stay as whole-number
+event counts.
 
-Click the extension icon to enter your birth date and estimated target lifespan.
-The extension saves those settings locally in Chrome, then every new tab shows
-your private life timer.
+Click the extension icon to enter your birth date and target age, such as 20,
+30, or any other age. The extension saves those settings locally in Chrome, then
+every new tab shows your private timer.
 
 The extension has no account, analytics, ads, tracking, or remote server. Your
 settings stay on your device.
@@ -32,12 +32,12 @@ settings stay on your device.
 Single purpose:
 
 Life Timer replaces the Chrome new tab page with a private countdown based on a
-birth date and target lifespan entered by the user in the extension popup.
+birth date and target age entered by the user in the extension popup.
 
 Permission justification:
 
-`storage`: Saves the user's birth date and target lifespan locally so the
-countdown remains configured across new tabs and browser restarts.
+`storage`: Saves the user's birth date and target age locally so the countdown
+remains configured across new tabs and browser restarts.
 
 Remote code:
 
@@ -65,5 +65,5 @@ No credentials are required.
 
 1. Load the extension.
 2. Open a new tab.
-3. Enter a birth date and target lifespan.
+3. Enter a birth date and target age.
 4. Confirm the new tab page shows a live countdown and concrete metric counters.

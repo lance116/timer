@@ -6,7 +6,7 @@ const MONTHS_PER_HAIRCUT = 3;
 const WORLD_CUP_CYCLE_START_YEAR = 2026;
 const DEFAULT_SETTINGS = {
   birthDate: "",
-  lifespanYears: 85
+  targetAge: 85
 };
 
 const countdown = document.querySelector("#countdown");
@@ -50,12 +50,10 @@ function bindStorageUpdates() {
       return;
     }
 
-    if (changes.birthDate || changes.lifespanYears) {
+    if (changes.birthDate || changes.targetAge || changes.lifespanYears) {
       settings = normalizeSettings({
         birthDate: changes.birthDate ? changes.birthDate.newValue : settings.birthDate,
-        lifespanYears: changes.lifespanYears
-          ? changes.lifespanYears.newValue
-          : settings.lifespanYears
+        targetAge: getChangedValue(changes, "targetAge", "lifespanYears", settings.targetAge)
       });
       updateTarget();
     }
@@ -65,7 +63,7 @@ function bindStorageUpdates() {
 function updateTarget() {
   const birthDate = parseBirthDate(settings.birthDate);
 
-  if (!birthDate || !Number.isFinite(settings.lifespanYears)) {
+  if (!birthDate || !Number.isFinite(settings.targetAge)) {
     targetTime = null;
     countdown.textContent = placeholderCountdown();
     countdown.dataset.state = "empty";
@@ -74,7 +72,7 @@ function updateTarget() {
     return;
   }
 
-  targetTime = birthDate.getTime() + settings.lifespanYears * MS_PER_YEAR;
+  targetTime = birthDate.getTime() + settings.targetAge * MS_PER_YEAR;
   countdown.dataset.state = "active";
   lastMetricSecond = null;
   updateMetrics(Date.now());
@@ -159,12 +157,38 @@ function averageDaysPerHaircut() {
 }
 
 function normalizeSettings(value) {
-  const lifespanYears = Number.parseFloat(value.lifespanYears);
+  const targetAge = parseTargetAge(value);
 
   return {
     birthDate: typeof value.birthDate === "string" ? value.birthDate : "",
-    lifespanYears: Number.isFinite(lifespanYears) ? lifespanYears : 85
+    targetAge: Number.isFinite(targetAge) ? targetAge : 85
   };
+}
+
+function parseTargetAge(value) {
+  const targetAge = Number.parseFloat(value.targetAge);
+  const legacyAge = Number.parseFloat(value.lifespanYears);
+
+  if (
+    Number.isFinite(legacyAge) &&
+    (!Number.isFinite(targetAge) || targetAge === DEFAULT_SETTINGS.targetAge)
+  ) {
+    return legacyAge;
+  }
+
+  return targetAge;
+}
+
+function getChangedValue(changes, primaryKey, legacyKey, fallback) {
+  if (changes[primaryKey]) {
+    return changes[primaryKey].newValue;
+  }
+
+  if (changes[legacyKey]) {
+    return changes[legacyKey].newValue;
+  }
+
+  return fallback;
 }
 
 function parseBirthDate(value) {
