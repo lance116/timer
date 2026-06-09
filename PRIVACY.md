@@ -1,9 +1,9 @@
 # Privacy Policy
 
-Life Timer does not collect, transmit, sell, or share personal data.
+Milestone Timer does not collect, transmit, sell, or share personal data.
 
-The extension asks for a birth date and target age only to calculate the
-countdown shown on the Chrome new tab page. Those settings are stored locally in
+The extension asks for a birth date and milestone age only to calculate the
+metrics shown on the Chrome new tab page. Those settings are stored locally in
 the browser with `chrome.storage.local`.
 
 No analytics, tracking, remote code, ads, external servers, or third-party data

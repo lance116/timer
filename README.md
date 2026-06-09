@@ -1,11 +1,10 @@
-# Timer
+# Milestone Timer
 
-Life Timer is a Manifest V3 Chrome extension that replaces the new tab page with
-a private countdown to any target age. Set a birth date and target age from the
-extension popup, and every new tab shows the remaining years to twelve decimal
-places alongside tangible counts for days, meals, haircuts, World Cups, and
-summers left.
-Years and days use decimals; meals, haircuts, World Cups, and summers stay as
+Milestone Timer is a Manifest V3 Chrome extension that replaces the new tab page
+with a private tracker for any age milestone. Set a birth date and milestone age
+from the extension popup, and every new tab shows years and days to twelve
+decimal places alongside tangible counts for meals, haircuts, World Cups, and
+summers before the milestone. Meals, haircuts, World Cups, and summers stay as
 whole-number event counts.
 
 ## Install locally
@@ -15,7 +14,7 @@ whole-number event counts.
 3. Click Load unpacked.
 4. Select this repository folder.
 
-Settings are saved with `chrome.storage.local`, so the countdown remains
+Settings are saved with `chrome.storage.local`, so the tracker remains
 configured across new tabs and browser restarts.
 
 ## Prepare Web Store package

@@ -70,18 +70,18 @@ def make_store_image(path, size, variant):
 
     if variant == "screenshot":
         left = 340
-        text_left(draw, (left, 120), "TIME REMAINING", font(16, True), dim)
+        text_left(draw, (left, 120), "MILESTONE PROGRESS", font(16, True), dim)
         draw_metrics(draw, left, 190, cream, dim)
     elif variant == "small":
-        draw.text((32, 32), "Life Timer", font=font(46, True), fill=cream)
-        draw.text((34, 92), "A new tab countdown to any target age.", font=font(22), fill=dim)
+        draw.text((32, 32), "Milestone Timer", font=font(38, True), fill=cream)
+        draw.text((34, 92), "A new tab tracker for any age milestone.", font=font(21), fill=dim)
         draw.text((34, 164), "48.566648512", font=font(38, True), fill=cream)
-        draw.text((36, 222), "years to target", font=font(24, True), fill=cream)
+        draw.text((36, 222), "years to milestone", font=font(24, True), fill=cream)
         icon = make_icon(96)
         image.paste(icon, (width - 126, height - 126), icon)
     else:
-        draw.text((78, 86), "Life Timer", font=font(86, True), fill=cream)
-        draw.text((84, 188), "Days, meals, haircuts, World Cups, and summers left.", font=font(34), fill=dim)
+        draw.text((78, 86), "Milestone Timer", font=font(72, True), fill=cream)
+        draw.text((84, 188), "Age milestone metrics for new tabs.", font=font(34), fill=dim)
         draw.text((78, 326), "48.566648512345 years", font=font(82, True), fill=cream)
         icon = make_icon(160)
         image.paste(icon, (width - 238, 86), icon)

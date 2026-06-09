@@ -4,9 +4,9 @@ Use this as the dashboard copy for the first submission.
 
 ## Product Details
 
-Name: Life Timer
+Name: Milestone Timer
 
-Summary: Replace your new tab page with a private countdown to any target age.
+Summary: Track progress toward any age milestone from your new tab page.
 
 Category: Productivity
 
@@ -14,15 +14,15 @@ Language: English
 
 Detailed description:
 
-Life Timer replaces your Chrome new tab page with a clean countdown to any target
-age, shown in years to twelve decimal places. It also shows more tangible counts
-for days, meals, haircuts, World Cups, and summers left. Continuous years and
-days use decimals; meals, haircuts, World Cups, and summers stay as whole-number
-event counts.
+Milestone Timer replaces your Chrome new tab page with a clean private tracker
+for any age milestone, shown in years to twelve decimal places. It also shows
+more tangible counts for days, meals, haircuts, World Cups, and summers before
+the milestone. Continuous years and days use decimals; meals, haircuts, World
+Cups, and summers stay as whole-number event counts.
 
-Click the extension icon to enter your birth date and target age, such as 20,
+Click the extension icon to enter your birth date and milestone age, such as 20,
 30, or any other age. The extension saves those settings locally in Chrome, then
-every new tab shows your private timer.
+every new tab shows your private milestone tracker.
 
 The extension has no account, analytics, ads, tracking, or remote server. Your
 settings stay on your device.
@@ -31,12 +31,12 @@ settings stay on your device.
 
 Single purpose:
 
-Life Timer replaces the Chrome new tab page with a private countdown based on a
-birth date and target age entered by the user in the extension popup.
+Milestone Timer replaces the Chrome new tab page with a private tracker based on
+a birth date and milestone age entered by the user in the extension popup.
 
 Permission justification:
 
-`storage`: Saves the user's birth date and target age locally so the countdown
+`storage`: Saves the user's birth date and milestone age locally so the tracker
 remains configured across new tabs and browser restarts.
 
 Remote code:
@@ -65,5 +65,5 @@ No credentials are required.
 
 1. Load the extension.
 2. Open a new tab.
-3. Enter a birth date and target age.
-4. Confirm the new tab page shows a live countdown and concrete metric counters.
+3. Enter a birth date and milestone age.
+4. Confirm the new tab page shows live milestone metrics.
